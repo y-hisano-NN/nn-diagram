@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>提案書チューニング Before / After 図解</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#090e1a;
+    --bg-card:#0f1829;
+    --accent-cyan:#00d4ff;
+    --accent-gold:#ffd700;
+    --accent-purple:#a855f7;
+    --accent-green:#22c55e;
+    --accent-red:#ef4444;
+    --text-primary:#e2e8f0;
+    --text-secondary:#94a3b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Noto Sans JP',sans-serif;
+    background:var(--bg-dark);
+    color:var(--text-primary);
+    line-height:1.8;
+    padding:56px 24px 120px;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+  header{margin-bottom:48px;text-align:center;}
+  header .eyebrow{
+    color:var(--accent-cyan);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    margin-bottom:12px;
+  }
+  header h1{
+    font-size:clamp(24px,4vw,36px);
+    font-weight:900;
+    margin-bottom:16px;
+    background:linear-gradient(120deg,#ffffff,var(--accent-cyan));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  header p{color:var(--text-secondary);font-size:15px;max-width:620px;margin:0 auto;}
+
+  section{margin-bottom:40px;}
+  .section-title{
+    display:flex;align-items:center;gap:10px;
+    font-size:18px;font-weight:700;margin-bottom:20px;
+    color:var(--text-primary);
+  }
+  .section-title .num{
+    display:flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:8px;
+    background:rgba(0,212,255,0.12);
+    color:var(--accent-cyan);
+    font-size:14px;font-weight:900;
+  }
+
+  .card{
+    background:var(--bg-card);
+    border:1px solid rgba(148,163,184,0.12);
+    border-radius:16px;
+    padding:24px;
+  }
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .tune-card{
+    background:var(--bg-card);
+    border:1px solid rgba(148,163,184,0.12);
+    border-radius:16px;
+    padding:22px 20px;
+    break-inside:avoid;
+  }
+  .tune-card .icon{font-size:22px;margin-bottom:12px;display:block;}
+  .tune-card h3{font-size:14.5px;font-weight:700;margin-bottom:8px;color:var(--accent-cyan);}
+  .tune-card p{font-size:12.5px;color:var(--text-secondary);}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .compare-col{
+    border-radius:16px;padding:20px 20px 22px;
+    border:1px solid rgba(148,163,184,0.12);
+  }
+  .compare-col.before{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.25);}
+  .compare-col.after{background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.28);}
+  .compare-col .tag{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.08em;
+    padding:4px 10px;border-radius:999px;margin-bottom:14px;
+  }
+  .before .tag{background:rgba(239,68,68,0.18);color:#fca5a5;}
+  .after .tag{background:rgba(34,197,94,0.18);color:#86efac;}
+  .diff-line{
+    font-size:13px;padding:10px 12px;border-radius:10px;margin-bottom:10px;
+    background:rgba(0,0,0,0.18);
+  }
+  .before .diff-line{text-decoration:line-through;text-decoration-color:var(--accent-red);color:#fca5a5;}
+  .after .diff-line{color:#bbf7d0;}
+  .diff-label{display:block;font-size:10.5px;color:var(--text-secondary);margin-bottom:4px;text-decoration:none;}
+
+  .fulltext{
+    margin-top:14px;
+    font-size:11.5px;
+    color:var(--text-secondary);
+    background:rgba(0,0,0,0.22);
+    border-radius:10px;
+    padding:14px 14px;
+    white-space:pre-wrap;
+    max-height:220px;
+    overflow-y:auto;
+    line-height:1.7;
+  }
+
+  .point-list{list-style:none;}
+  .point-list li{
+    display:flex;gap:12px;padding:14px 0;
+    border-bottom:1px solid rgba(148,163,184,0.1);
+    font-size:13.5px;
+  }
+  .point-list li:last-child{border-bottom:none;}
+  .point-list .dot{
+    flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;
+  }
+  .point-list.good .dot{background:var(--accent-green);}
+  .point-list.hard .dot{background:var(--accent-gold);}
+  .point-list b{color:var(--text-primary);}
+  .point-list span{color:var(--text-secondary);}
+
+  .struggle-flow{
+    display:flex;flex-direction:column;gap:10px;margin-top:6px;
+  }
+  .struggle-step{
+    display:flex;gap:14px;align-items:flex-start;
+    background:rgba(255,215,0,0.05);
+    border:1px solid rgba(255,215,0,0.18);
+    border-radius:12px;padding:14px 16px;
+    font-size:13px;
+  }
+  .struggle-step .badge{
+    flex-shrink:0;
+    font-size:11px;font-weight:700;color:var(--accent-gold);
+    background:rgba(255,215,0,0.12);
+    border-radius:999px;padding:3px 10px;
+    white-space:nowrap;
+  }
+  .struggle-step p{color:var(--text-secondary);}
+  .struggle-step p b{color:var(--text-primary);}
+
+  footer{
+    margin-top:56px;text-align:center;
+    color:var(--text-secondary);font-size:11.5px;
+  }
+
+  @media(max-width:720px){
+    .grid3{grid-template-columns:1fr;}
+    .compare{grid-template-columns:1fr;}
+  }
+
+  @media print{
+    body{background:#fff;color:#111;padding:0;}
+    header h1{-webkit-text-fill-color:#111;background:none;color:#111;}
+    header p{color:#333;}
+    .card,.tune-card,.compare-col,.struggle-step{
+      background:#fff !important;border:1px solid #ccc !important;color:#111 !important;
+      box-shadow:none !important; break-inside:avoid;
+    }
+    .before{background:#fff2f2 !important;}
+    .after{background:#f0fdf4 !important;}
+    .diff-line{background:#f5f5f5 !important;color:#111 !important;text-decoration-color:#c00 !important;}
+    .fulltext{background:#f7f7f7 !important;color:#333 !important;max-height:none;overflow:visible;}
+    .point-list span, .tune-card p, .struggle-step p{color:#444 !important;}
+    #pdf-btn{display:none !important;}
+    @page{margin:15mm 12mm;size:A4;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">PROPOSAL SKILL TUNING</div>
+    <h1>提案書チューニング Before / After 図解</h1>
+    <p>writing-proposals スキルを自分の業務（会社の工事台帳運用提案）に合わせてチューニングし、一発出しの提案文がどう変わったかをまとめた。</p>
+  </header>
+
+  <section>
+    <div class="section-title"><span class="num">1</span>チューニングした3つのポイント</div>
+    <div class="grid3">
+      <div class="tune-card">
+        <span class="icon">🈲</span>
+        <h3>会社固有NGワード辞書</h3>
+        <p>「育てる／育成／メンター」を使用禁止に。会社の言葉「活躍方針／活躍できる環境を整える／伴走者／ささえる」への言い換えを、出力前チェックに組み込んだ。</p>
+      </div>
+      <div class="tune-card">
+        <span class="icon">🌱</span>
+        <h3>規模の確認ルール</h3>
+        <p>対象が多数の案件・人に及ぶ提案では「全件一斉適用か試験運用か」を必ず質問するルールを追加。ただし試験運用を既定にはせず、判断は毎回ユーザーに委ねる設計にした。</p>
+      </div>
+      <div class="tune-card">
+        <span class="icon">📚</span>
+        <h3>会社の実例を最優先参照</h3>
+        <p>会社向けに実際に書かれた提案文（COMPASS浸透施策・工事台帳運用）をスキルの模範解答例として追加し、汎用の一般例より先に参照させるようにした。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">2</span>Before / After 比較</div>
+    <div class="card" style="padding:24px 24px 8px;">
+      <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:20px;">同じ「工事台帳の着工前作戦会議・完了後振り返り会議」の提案。チューニング前は一発出しでNGワードと全件一斉適用のまま出力され、チューニング後の一発出しでは両方が解消された。</p>
+      <div class="compare">
+        <div class="compare-col before">
+          <span class="tag">BEFORE（チューニング前）</span>
+          <div class="diff-line">
+            <span class="diff-label">対象範囲</span>
+            全工事案件で、着工前・完了後の会議を必須運用にする
+          </div>
+          <div class="diff-line">
+            <span class="diff-label">言葉遣い</span>
+            顧客への提案力も十分に育っていません
+          </div>
+          <div class="fulltext">【提案】全工事案件で、着工前の作戦会議と完了後の振り返り会議を必須運用にすることをご承認ください。会議は部長ご自身に主導いただきたいです。
+
+（本文中）…メンバーの成長スピードは思うように上がらず、顧客への提案力も十分に育っていません。…
+
+■ まず、全工事案件で着工前・完了後の会議を必須運用にすることから
+やり方や進行の細部は問いません。まず「全案件で必ず実施する」というルールだけを、部長のご判断で現場に示していただきたいです。</div>
+        </div>
+        <div class="compare-col after">
+          <span class="tag">AFTER（チューニング後）</span>
+          <div class="diff-line">
+            <span class="diff-label">対象範囲</span>
+            まず週1件・3か月の試験運用として始める
+          </div>
+          <div class="diff-line">
+            <span class="diff-label">言葉遣い</span>
+            顧客への提案力も十分に伸びていません
+          </div>
+          <div class="fulltext">【提案】年間500件・週10件前後の工事のうち、まず週1件のペースで3か月、着工前の作戦会議と完了後の振り返り会議を試験運用することをご承認ください。会議は部長ご自身に主導いただきたいです。
+
+（本文中）…メンバーの成長スピードは思うように上がらず、顧客への提案力も十分に伸びていません。…
+
+■ まず、週1件・3か月の試験運用から
+案件の選び方や進行の細部は問いません。まず「週1件、3か月」という規模だけを、部長のご判断で決めていただきたいです。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">3</span>工夫ポイント</div>
+    <div class="card">
+      <ul class="point-list good">
+        <li><span class="dot"></span><div><b>NGワードは「本人に聞かないと分からない」前提で設計した。</b><span> 一般的な言葉遣いのルールではなく、経営理念（「つくる」と「なる」の区別、5つの喜び）という一次情報を読み込んで初めて分かる会社固有のルールだったため、社長からのフィードバックをそのまま辞書化する仕組みにした。</span></div></li>
+        <li><span class="dot"></span><div><b>規模の確認を「質問」として設計し、「ルール」にしなかった。</b><span> AIが先回りして小さく始めることを決め打ちすると、緊急対応や合意済み案件では逆に不便になる。判断の主導権を常にユーザーに残す設計にした。</span></div></li>
+        <li><span class="dot"></span><div><b>実例を「会社の実物」に差し替えた。</b><span> 汎用のビジネス文書例より、実際に会社向けに書かれた提案文のほうが、言葉のトーンや構成が一発出しの精度に直結すると判断した。</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">4</span>苦戦ポイント</div>
+    <div class="struggle-flow">
+      <div class="struggle-step">
+        <span class="badge">失敗</span>
+        <p><b>スモールスタートを「対象が多い提案は既定で試験運用にする」という固定ルールとして書いてしまった。</b>今回の工事台帳のケースでは正解だったが、緊急性が高い・対象が少ない・現場合意済みなど、全件一斉適用が適切な場面もある。1回の良い判断を一般化しすぎた。</p>
+      </div>
+      <div class="struggle-step">
+        <span class="badge">指摘</span>
+        <p>「これは必ずそうするスキルではなく、壁打ちで確認するスキルにすべきではないか」というフィードバックを受けた。スキルの大原則である「上流は人間が決める」に、自分が加えたルールが反していることに気づいた。</p>
+      </div>
+      <div class="struggle-step">
+        <span class="badge">修正</span>
+        <p>固定ルールを「必ず質問して確認する（推奨案は添えるが、既定にはしない）」という形に書き換え、出力品質チェックリストにも「試験運用を機械的に既定にしていないか」という確認項目を追加した。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    writing-proposals スキルチューニング記録 ／ 社外非公開（検索エンジン非表示設定済み）
+  </footer>
+
+</div>
+
+<div id="pdf-btn" style="position:fixed;bottom:32px;right:32px;z-index:999;">
+  <button onclick="window.print()" style="
+    display:flex;align-items:center;gap:8px;
+    background:linear-gradient(120deg,var(--accent-cyan),var(--accent-purple));
+    color:#05070d;border:none;border-radius:999px;
+    padding:12px 20px;font-family:'Noto Sans JP',sans-serif;
+    font-size:13px;font-weight:700;cursor:pointer;
+    box-shadow:0 8px 24px rgba(0,212,255,0.28);">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+    PDFに出力
+  </button>
+</div>
+
+</body>
+</html>

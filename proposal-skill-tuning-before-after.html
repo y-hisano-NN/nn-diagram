@@ -80,38 +80,42 @@
   .tune-card h3{font-size:14.5px;font-weight:700;margin-bottom:8px;color:var(--accent-cyan);}
   .tune-card p{font-size:12.5px;color:var(--text-secondary);}
 
-  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .compare-col{
-    border-radius:16px;padding:20px 20px 22px;
+  .target-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .target-item{
+    border-radius:14px;padding:18px 20px;
+    background:rgba(0,212,255,0.05);
+    border:1px solid rgba(0,212,255,0.18);
+  }
+  .target-label{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.08em;
+    padding:4px 10px;border-radius:999px;margin-bottom:12px;
+    background:rgba(0,212,255,0.16);color:var(--accent-cyan);
+  }
+  .target-item p{font-size:14px;color:var(--text-primary);}
+
+  .proposal-block{
+    border-radius:16px;padding:22px 24px 26px;
     border:1px solid rgba(148,163,184,0.12);
   }
-  .compare-col.before{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.25);}
-  .compare-col.after{background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.28);}
-  .compare-col .tag{
-    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.08em;
-    padding:4px 10px;border-radius:999px;margin-bottom:14px;
+  .proposal-block.before{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.25);}
+  .proposal-block.after{background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.28);}
+  .proposal-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11.5px;font-weight:700;letter-spacing:0.06em;
+    padding:5px 12px;border-radius:999px;margin-bottom:16px;
   }
-  .before .tag{background:rgba(239,68,68,0.18);color:#fca5a5;}
-  .after .tag{background:rgba(34,197,94,0.18);color:#86efac;}
-  .diff-line{
-    font-size:13px;padding:10px 12px;border-radius:10px;margin-bottom:10px;
-    background:rgba(0,0,0,0.18);
-  }
-  .before .diff-line{text-decoration:line-through;text-decoration-color:var(--accent-red);color:#fca5a5;}
-  .after .diff-line{color:#bbf7d0;}
-  .diff-label{display:block;font-size:10.5px;color:var(--text-secondary);margin-bottom:4px;text-decoration:none;}
+  .before .proposal-tag{background:rgba(239,68,68,0.18);color:#fca5a5;}
+  .after .proposal-tag{background:rgba(34,197,94,0.18);color:#86efac;}
+  .proposal-note{font-size:12px;color:var(--text-secondary);margin-bottom:14px;}
 
-  .fulltext{
-    margin-top:14px;
-    font-size:11.5px;
-    color:var(--text-secondary);
+  .fulltext-full{
+    font-size:13px;
+    color:var(--text-primary);
     background:rgba(0,0,0,0.22);
-    border-radius:10px;
-    padding:14px 14px;
+    border-radius:12px;
+    padding:20px 20px;
     white-space:pre-wrap;
-    max-height:220px;
-    overflow-y:auto;
-    line-height:1.7;
+    line-height:1.85;
   }
 
   .point-list{list-style:none;}
@@ -156,22 +160,21 @@
 
   @media(max-width:720px){
     .grid3{grid-template-columns:1fr;}
-    .compare{grid-template-columns:1fr;}
+    .target-grid{grid-template-columns:1fr;}
   }
 
   @media print{
     body{background:#fff;color:#111;padding:0;}
     header h1{-webkit-text-fill-color:#111;background:none;color:#111;}
     header p{color:#333;}
-    .card,.tune-card,.compare-col,.struggle-step{
+    .card,.tune-card,.target-item,.proposal-block,.struggle-step{
       background:#fff !important;border:1px solid #ccc !important;color:#111 !important;
       box-shadow:none !important; break-inside:avoid;
     }
-    .before{background:#fff2f2 !important;}
-    .after{background:#f0fdf4 !important;}
-    .diff-line{background:#f5f5f5 !important;color:#111 !important;text-decoration-color:#c00 !important;}
-    .fulltext{background:#f7f7f7 !important;color:#333 !important;max-height:none;overflow:visible;}
-    .point-list span, .tune-card p, .struggle-step p{color:#444 !important;}
+    .proposal-block.before{background:#fff2f2 !important;}
+    .proposal-block.after{background:#f0fdf4 !important;}
+    .fulltext-full{background:#f7f7f7 !important;color:#222 !important;}
+    .point-list span, .tune-card p, .struggle-step p, .target-item p{color:#444 !important;}
     #pdf-btn{display:none !important;}
     @page{margin:15mm 12mm;size:A4;}
   }
@@ -187,7 +190,21 @@
   </header>
 
   <section>
-    <div class="section-title"><span class="num">1</span>チューニングした3つのポイント</div>
+    <div class="section-title"><span class="num">1</span>想定した相手と、変えたいこと</div>
+    <div class="target-grid">
+      <div class="target-item">
+        <span class="target-label">相手</span>
+        <p>工事部門の部長・統括者。この提案の承認者であり、実際に各会議に出席して主導する実施者でもある。</p>
+      </div>
+      <div class="target-item">
+        <span class="target-label">変えたいこと</span>
+        <p>工事台帳の着工前作戦会議・完了後振り返り会議を、現場担当者ごとの裁量任せ（実施の有無も内容もバラバラ）の状態から、正式な運用ルールに変える。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">2</span>チューニングした3つのポイント</div>
     <div class="grid3">
       <div class="tune-card">
         <span class="icon">🈲</span>
@@ -208,65 +225,83 @@
   </section>
 
   <section>
-    <div class="section-title"><span class="num">2</span>Before / After 比較</div>
-    <div class="card" style="padding:24px 24px 8px;">
-      <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:20px;">同じ「工事台帳の着工前作戦会議・完了後振り返り会議」の提案。チューニング前は一発出しでNGワードと全件一斉適用のまま出力され、チューニング後の一発出しでは両方が解消された。</p>
-      <div class="compare">
-        <div class="compare-col before">
-          <span class="tag">BEFORE（チューニング前）</span>
-          <div class="diff-line">
-            <span class="diff-label">対象範囲</span>
-            全工事案件で、着工前・完了後の会議を必須運用にする
-          </div>
-          <div class="diff-line">
-            <span class="diff-label">言葉遣い</span>
-            顧客への提案力も十分に育っていません
-          </div>
-          <div class="fulltext">【提案】全工事案件で、着工前の作戦会議と完了後の振り返り会議を必須運用にすることをご承認ください。会議は部長ご自身に主導いただきたいです。
+    <div class="section-title"><span class="num">3</span>チューニング前のスキルで作成した提案文</div>
+    <div class="proposal-block before">
+      <span class="proposal-tag">BEFORE ／ 配布されたままのスキルで一発出し</span>
+      <p class="proposal-note">材料（誰に・何を・相手の懸念・根拠・情景）を対話で集めたうえで一発出しした結果。対象範囲は「全工事案件」、NGワード「育っていません」がそのまま出力されている。</p>
+      <div class="fulltext-full">【提案】全工事案件で、着工前の作戦会議と完了後の振り返り会議を必須運用にすることをご承認ください。会議は部長ご自身に主導いただきたいです。
 
-（本文中）…メンバーの成長スピードは思うように上がらず、顧客への提案力も十分に育っていません。…
+着工前の作戦会議で、若手が「そもそも、これがうまくいく前提は何か」を自分の言葉で語り始める。完了後の振り返りでは、部長の問いに詰まりながらも自分で答えにたどり着き、成長の喜びに目を輝かせる。次の現場で、その若手は顧客に一段と鋭い提案を持ちかけている。部長からは「ありがとう」が、やがて顧客からも「ありがとう」が返ってくる。
+
+その情景を、私は実現したいと思っています。
+
+■ なぜ、今これが必要か
+現状、着工前・完了後の会議は現場ごとの担当者の裁量に委ねられており、実施の有無も内容もバラバラです。この状態が続く中で、メンバーの成長スピードは思うように上がらず、顧客への提案力も十分に育っていません。工事台帳の方針にある通り、経験は年数ではなく「抽出し保存された果実（知恵・仕組み）」の総量で決まります。会議という収穫の場が制度化されていなければ、現場での経験は個人の記憶の中に埋もれたまま、資産に変わりません。
+
+■ 部長へ
+「また現場の手間が増えるだけではないか」、そう感じるのは当然だと思います。今のやり方でも現場は十分に忙しく、新しい会議を必須にすれば負担に見えるのも無理はありません。
+ただこの会議は、管理を増やすためのものではありません。部長ご自身が各会議に出席し、メンバーに「そもそも、着工前に戻れるとしたら何を変えるか」を問いかける場です。答えを教えるのではなく、問いを投げてメンバー自身に気づかせる。この一手間が、次の現場での提案の鋭さとして跳ね返ってきます。手間ではなく、部長の投資として位置づけたいと考えています。
 
 ■ まず、全工事案件で着工前・完了後の会議を必須運用にすることから
-やり方や進行の細部は問いません。まず「全案件で必ず実施する」というルールだけを、部長のご判断で現場に示していただきたいです。</div>
-        </div>
-        <div class="compare-col after">
-          <span class="tag">AFTER（チューニング後）</span>
-          <div class="diff-line">
-            <span class="diff-label">対象範囲</span>
-            まず週1件・3か月の試験運用として始める
-          </div>
-          <div class="diff-line">
-            <span class="diff-label">言葉遣い</span>
-            顧客への提案力も十分に伸びていません
-          </div>
-          <div class="fulltext">【提案】年間500件・週10件前後の工事のうち、まず週1件のペースで3か月、着工前の作戦会議と完了後の振り返り会議を試験運用することをご承認ください。会議は部長ご自身に主導いただきたいです。
+やり方や進行の細部は問いません。まず「全案件で必ず実施する」というルールだけを、部長のご判断で現場に示していただきたいです。
 
-（本文中）…メンバーの成長スピードは思うように上がらず、顧客への提案力も十分に伸びていません。…
+■ 私がやること
+会議の進行に使えるチェックリストと問いかけの型を、工事台帳の方針をもとに整理し、部長・現場双方がいつでも参照できる形で準備します。運用開始後の実施状況も、負担にならない範囲で私の方で追いかけます。
 
-■ まず、週1件・3か月の試験運用から
-案件の選び方や進行の細部は問いません。まず「週1件、3か月」という規模だけを、部長のご判断で決めていただきたいです。</div>
-        </div>
-      </div>
+着工前の作戦会議で若手が自分の言葉でリスクを語り、完了後の振り返りで成長の喜びに目を輝かせる、そんな瞬間を、来月から一つでも増やしていきたいと思います。</div>
     </div>
   </section>
 
   <section>
-    <div class="section-title"><span class="num">3</span>工夫ポイント</div>
+    <div class="section-title"><span class="num">4</span>チューニング後のスキルで一発出しした提案文</div>
+    <div class="proposal-block after">
+      <span class="proposal-tag">AFTER ／ チューニング後のスキルで一発出し</span>
+      <p class="proposal-note">同じ材料に加え、対話で確認した規模感（週1件・3か月の試験運用）を反映。NGワードは自動的に会社の言葉へ置き換わっている。</p>
+      <div class="fulltext-full">【提案】年間500件・週10件前後の工事のうち、まず週1件のペースで3か月、着工前の作戦会議と完了後の振り返り会議を試験運用することをご承認ください。会議は部長ご自身に主導いただきたいです。
+
+着工前の作戦会議で、若手が「そもそも、これがうまくいく前提は何か」を自分の言葉で語り始める。完了後の振り返りでは、部長の問いに詰まりながらも自分で答えにたどり着き、成長の喜びに目を輝かせる。次の現場で、その若手は顧客に一段と鋭い提案を持ちかけている。部長からは「ありがとう」が、やがて顧客からも「ありがとう」が返ってくる。
+
+その情景を、私は実現したいと思っています。
+
+■ なぜ、今これが必要か
+現状、着工前・完了後の会議は現場ごとの担当者の裁量に委ねられており、実施の有無も内容もバラバラです。この状態が続く中で、メンバーの成長スピードは思うように上がらず、顧客への提案力も十分に伸びていません。工事台帳の方針にある通り、経験は年数ではなく「抽出し保存された果実（知恵・仕組み）」の総量で決まります。会議という収穫の場が制度化されていなければ、現場での経験は個人の記憶の中に埋もれたまま、資産に変わりません。
+
+■ 部長へ
+「また現場の手間が増えるだけではないか」、そう感じるのは当然だと思います。年間500件、週10件前後を抱える中で、いきなり全件を対象にすれば負担に見えるのも無理はありません。
+そこでまずは週1件、3か月だけの試験運用にしたいと考えています。部長ご自身が数件の会議に出席し、メンバーに「そもそも、着工前に戻れるとしたら何を変えるか」を問いかける。答えを教えるのではなく、問いを投げてメンバー自身に気づかせる。この一手間が、次の現場での提案の鋭さとして跳ね返ってくるかを、まず小さく確かめたいです。3か月後、実施状況と手ごたえを振り返ったうえで、全件展開するかどうかは部長にご判断いただきます。
+
+■ まず、週1件・3か月の試験運用から
+案件の選び方や進行の細部は問いません。まず「週1件、3か月」という規模だけを、部長のご判断で決めていただきたいです。
+
+■ 私がやること
+会議の進行に使えるチェックリストと問いかけの型を、工事台帳の方針をもとに整理し、部長・現場双方がいつでも参照できる形で準備します。試験運用中の実施状況も、負担にならない範囲で私の方で追いかけ、3か月後の振り返りの材料を揃えます。
+
+着工前の作戦会議で若手が自分の言葉でリスクを語り、完了後の振り返りで成長の喜びに目を輝かせる、そんな瞬間を、週1件からでもまず増やしていきたいと思います。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">5</span>工夫したポイント</div>
     <div class="card">
       <ul class="point-list good">
-        <li><span class="dot"></span><div><b>NGワードは「本人に聞かないと分からない」前提で設計した。</b><span> 一般的な言葉遣いのルールではなく、経営理念（「つくる」と「なる」の区別、5つの喜び）という一次情報を読み込んで初めて分かる会社固有のルールだったため、社長からのフィードバックをそのまま辞書化する仕組みにした。</span></div></li>
-        <li><span class="dot"></span><div><b>規模の確認を「質問」として設計し、「ルール」にしなかった。</b><span> AIが先回りして小さく始めることを決め打ちすると、緊急対応や合意済み案件では逆に不便になる。判断の主導権を常にユーザーに残す設計にした。</span></div></li>
+        <li><span class="dot"></span><div><b>NGワードは「本人に聞かないと分からない」前提で設計した。</b><span> 一般的な言葉遣いのマナーではなく、経営理念（「つくる」と「なる」の区別、5つの喜び）という一次情報を読み込んで初めて分かる会社固有のルールだった。汎用的な禁止語リストを推測で作るのではなく、社長からの具体的な指摘をそのまま辞書化する仕組みにした。</span></div></li>
+        <li><span class="dot"></span><div><b>規模の確認を「質問」として設計し、「ルール」にしなかった。</b><span> AIが先回りして小さく始めることを決め打ちすると、緊急対応や現場合意済みの案件では逆に不便になる。「対象が多いときは既定で試験運用」ではなく「対象が多いときは必ず質問する」という線引きにし、判断の主導権を常にユーザーに残した。</span></div></li>
         <li><span class="dot"></span><div><b>実例を「会社の実物」に差し替えた。</b><span> 汎用のビジネス文書例より、実際に会社向けに書かれた提案文のほうが、言葉のトーンや構成が一発出しの精度に直結すると判断した。</span></div></li>
       </ul>
     </div>
   </section>
 
   <section>
-    <div class="section-title"><span class="num">4</span>苦戦ポイント</div>
+    <div class="section-title"><span class="num">6</span>苦戦したポイント</div>
+    <p class="proposal-note" style="margin-bottom:14px;">提案文そのものの書き直しは2回、スキルのルールを書き直したのも2回。どちらも「一発出しの精度を上げる」つもりが、最初は行き過ぎた一般化になっていた。</p>
     <div class="struggle-flow">
       <div class="struggle-step">
+        <span class="badge">気づき</span>
+        <p><b>会社固有のNGワードは、一発出しの前には分からなかった。</b>Beforeの提案文には「育っていません」がそのまま残っていた。社長から経営理念の文書を見せてもらって初めて、「育てる」が理念上明確に否定されている言葉だと分かった。1回目の書き直しはここから。</p>
+      </div>
+      <div class="struggle-step">
         <span class="badge">失敗</span>
-        <p><b>スモールスタートを「対象が多い提案は既定で試験運用にする」という固定ルールとして書いてしまった。</b>今回の工事台帳のケースでは正解だったが、緊急性が高い・対象が少ない・現場合意済みなど、全件一斉適用が適切な場面もある。1回の良い判断を一般化しすぎた。</p>
+        <p><b>次に、スモールスタートを「対象が多い提案は既定で試験運用にする」という固定ルールとして書いてしまった。</b>今回の工事台帳のケースでは正解だったが、緊急性が高い・対象が少ない・現場合意済みなど、全件一斉適用が適切な場面もある。1回の良い判断を一般化しすぎた。2回目の書き直しはここから。</p>
       </div>
       <div class="struggle-step">
         <span class="badge">指摘</span>
@@ -274,7 +309,7 @@
       </div>
       <div class="struggle-step">
         <span class="badge">修正</span>
-        <p>固定ルールを「必ず質問して確認する（推奨案は添えるが、既定にはしない）」という形に書き換え、出力品質チェックリストにも「試験運用を機械的に既定にしていないか」という確認項目を追加した。</p>
+        <p>固定ルールを「必ず質問して確認する（推奨案は添えるが、既定にはしない）」という形に書き換え、出力品質チェックリストにも「試験運用を機械的に既定にしていないか」という確認項目を追加した。「良い判断＝ルール化してよい」ではなく、「良い判断＝確認すべき論点として残す」という線引きの基準を学んだ。</p>
       </div>
     </div>
   </section>

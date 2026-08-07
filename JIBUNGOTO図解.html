@@ -179,6 +179,58 @@
   .watch-band p{font-size:13px;color:var(--text-secondary);}
   .watch-band b{color:var(--text-primary);}
 
+  /* ブロック4 実際の画面（モックアップ） */
+  .mockup-caption{font-size:12.5px;color:var(--text-secondary);margin-bottom:16px;}
+  .mockup-caption b{color:var(--text-primary);}
+  .screen-frame{
+    background:#f5f7fa;border-radius:16px;padding:22px 22px 26px;
+    border:1px solid rgba(148,163,184,0.18);
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+  }
+  .screen-bar{display:flex;align-items:center;gap:8px;margin-bottom:18px;}
+  .screen-dot{width:9px;height:9px;border-radius:50%;background:#d3d8e0;}
+  .screen-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid #e2e6ec;
+  }
+  .screen-header .app-name{font-size:17px;font-weight:900;color:#0f172a;}
+  .screen-header .app-ver{font-size:11px;color:#94a3b8;font-weight:500;margin-left:4px;}
+  .screen-header .new-btn{
+    background:#2563eb;color:#fff;font-size:12px;font-weight:700;
+    border-radius:8px;padding:8px 14px;white-space:nowrap;
+  }
+  .screen-title{font-size:14.5px;font-weight:700;color:#0f172a;margin-bottom:14px;}
+  .screen-cards{display:flex;flex-direction:column;gap:14px;}
+  .screen-card{
+    background:#fff;border:1px solid #e5e9f0;border-radius:12px;
+    padding:16px 18px;
+  }
+  .screen-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .screen-card-top h4{font-size:14px;font-weight:700;color:#0f172a;}
+  .screen-badge{
+    font-size:10.5px;font-weight:700;color:#fff;background:#16a34a;
+    border-radius:999px;padding:2px 10px;
+  }
+  .screen-support{font-size:12.5px;color:#2563eb;font-weight:600;margin-bottom:4px;}
+  .screen-support .masked{
+    background:#dbeafe;color:#dbeafe;border-radius:4px;padding:0 2px;
+  }
+  .screen-purpose{font-size:12px;color:#475569;margin-bottom:10px;}
+  .screen-box{
+    font-size:12px;color:#334155;border-radius:8px;padding:9px 12px;margin-bottom:8px;
+  }
+  .screen-box.other-ball{background:#eef4ff;}
+  .screen-box.joy{background:#fef9e7;border-left:3px solid #f5c542;}
+  .screen-box b{color:#0f172a;}
+  .screen-box .masked{
+    background:#c7d2fe;color:#c7d2fe;border-radius:4px;padding:0 2px;
+  }
+  .screen-next{font-size:12.5px;color:#334155;margin-bottom:12px;}
+  .screen-btns{display:flex;gap:8px;}
+  .screen-btn{font-size:11.5px;font-weight:700;border-radius:7px;padding:8px 12px;}
+  .screen-btn.gray{background:#475569;color:#fff;}
+  .screen-btn.green{background:#16a34a;color:#fff;}
+
   /* ブロック4 思想 */
   .principle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
   .principle-card{
@@ -420,7 +472,46 @@
   </section>
 
   <section>
-    <div class="section-title"><span class="num">4</span>思想（なぜこの作りなのか）── 当社独自の価値観</div>
+    <div class="section-title"><span class="num">4</span>実際の画面</div>
+    <p class="mockup-caption">現在稼働中のJIBUNGOTO（<b>v0.3</b>）のタスク一覧画面。「ささえる相手」「相手のボール」「取りに行く喜び」「次に来る自分のボール」が1枚のカードに並ぶ。<b>※個人名は伏せ字にしています。</b></p>
+    <div class="screen-frame">
+      <div class="screen-bar"><span class="screen-dot"></span><span class="screen-dot"></span><span class="screen-dot"></span></div>
+      <div class="screen-header">
+        <div><span class="app-name">JIBUNGOTO</span><span class="app-ver">v0.3</span></div>
+        <span class="new-btn">＋新規タスク登録</span>
+      </div>
+      <div class="screen-title">タスク一覧（直近の自分のボール順）</div>
+      <div class="screen-cards">
+        <div class="screen-card">
+          <div class="screen-card-top"><h4>求人票の作成</h4><span class="screen-badge">active</span></div>
+          <div class="screen-support">ささえる相手: <span class="masked">〇〇〇〇</span></div>
+          <div class="screen-purpose">目的: 未来のささえる人を迎えるため</div>
+          <div class="screen-box other-ball"><b>相手のボール:</b> <span class="masked">〇〇〇〇</span> / 求人票の作成を (期限: 2026-08-10 17:00)</div>
+          <div class="screen-box joy"><b>取りに行く喜び:</b> 達成の喜び</div>
+          <div class="screen-next">[次に来る自分のボール] 壁打ち (2026-08-09 13:30)</div>
+          <div class="screen-btns">
+            <span class="screen-btn gray">前提更新（リスケ・問い直し）</span>
+            <span class="screen-btn green">自分のボール完了</span>
+          </div>
+        </div>
+        <div class="screen-card">
+          <div class="screen-card-top"><h4>西部機械係の安定運営</h4><span class="screen-badge">active</span></div>
+          <div class="screen-support">ささえる相手: オペ部の機械係</div>
+          <div class="screen-purpose">目的: インフラを守り、止めない</div>
+          <div class="screen-box other-ball"><b>相手のボール:</b> <span class="masked">〇〇〇〇</span> / エンジ部の活用 (期限: 2026-08-28 17:00)</div>
+          <div class="screen-box joy"><b>取りに行く喜び:</b> 達成の喜び、成長の喜び</div>
+          <div class="screen-next">[次に来る自分のボール] 報告受領（2割共有） (2026-08-18 08:30)</div>
+          <div class="screen-btns">
+            <span class="screen-btn gray">前提更新（リスケ・問い直し）</span>
+            <span class="screen-btn green">自分のボール完了</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">5</span>思想（なぜこの作りなのか）── 当社独自の価値観</div>
     <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">このツールを貫く3つの原則。社外の人が最も理解しにくい部分なので、各原則に説明を付ける。</p>
     <div class="principle-grid">
       <div class="principle-card">
@@ -446,7 +537,7 @@
   </section>
 
   <section>
-    <div class="section-title"><span class="num">5</span>どう作ったのか（このチャットで経たプロセス）</div>
+    <div class="section-title"><span class="num">6</span>どう作ったのか（このチャットで経たプロセス）</div>
     <div class="card" style="margin-bottom:16px;">
       <p style="font-size:13px;color:var(--text-secondary);">JIBUNGOTOは、社長とAI参謀（CoS）の壁打ちを通じて設計された。特徴的なのは、<b style="color:var(--text-primary);">手段を先に決めては立ち止まり、前提を更新し続けた</b>こと。</p>
       <div class="def-box" style="margin-top:12px;"><b>壁打ち</b>＝答えをすぐ出さず、問いを重ねて相手自身に考えさせる対話のやり方。</div>
@@ -490,7 +581,7 @@
   </section>
 
   <section>
-    <div class="section-title"><span class="num">6</span>どう実装したのか（技術構成と役割分担）</div>
+    <div class="section-title"><span class="num">7</span>どう実装したのか（技術構成と役割分担）</div>
     <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">設計（思想・仕様）と実装（コード化）で、使うAIと役割を分けた。</p>
     <div class="role-grid">
       <div class="role-card design">

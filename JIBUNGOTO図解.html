@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>JIBUNGOTO 図解</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#090e1a;
+    --bg-card:#0f1829;
+    --accent-cyan:#00d4ff;
+    --accent-gold:#ffd700;
+    --accent-purple:#a855f7;
+    --accent-green:#22c55e;
+    --accent-red:#ef4444;
+    --text-primary:#e2e8f0;
+    --text-secondary:#94a3b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Noto Sans JP',sans-serif;
+    background:var(--bg-dark);
+    color:var(--text-primary);
+    line-height:1.8;
+    padding:56px 24px 120px;
+  }
+  .wrap{max-width:1040px;margin:0 auto;}
+
+  header{margin-bottom:52px;text-align:center;}
+  header .eyebrow{
+    color:var(--accent-cyan);
+    font-size:13px;font-weight:700;letter-spacing:0.14em;
+    margin-bottom:14px;
+  }
+  header h1{
+    font-size:clamp(24px,4vw,34px);
+    font-weight:900;margin-bottom:14px;
+    background:linear-gradient(120deg,#ffffff,var(--accent-cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    line-height:1.5;
+  }
+  header p{color:var(--text-secondary);font-size:14.5px;max-width:680px;margin:0 auto;}
+
+  section{margin-bottom:44px;break-inside:avoid;}
+  .section-title{
+    display:flex;align-items:center;gap:10px;
+    font-size:18px;font-weight:700;margin-bottom:20px;
+    color:var(--text-primary);
+  }
+  .section-title .num{
+    display:flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:8px;flex-shrink:0;
+    background:rgba(0,212,255,0.12);
+    color:var(--accent-cyan);
+    font-size:14px;font-weight:900;
+  }
+
+  .card{
+    background:var(--bg-card);
+    border:1px solid rgba(148,163,184,0.12);
+    border-radius:16px;
+    padding:24px;
+  }
+
+  /* ブロック1 */
+  .origin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .origin-item{
+    border-radius:14px;padding:20px;
+    background:var(--bg-card);
+    border:1px solid rgba(148,163,184,0.12);
+  }
+  .origin-label{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.06em;
+    padding:4px 10px;border-radius:999px;margin-bottom:12px;
+    background:rgba(0,212,255,0.16);color:var(--accent-cyan);
+  }
+  .origin-item p{font-size:13.5px;color:var(--text-secondary);}
+  .origin-item b{color:var(--text-primary);}
+  .purpose-band{
+    margin-top:16px;
+    border-radius:14px;padding:18px 22px;
+    background:rgba(255,215,0,0.06);
+    border:1px solid rgba(255,215,0,0.22);
+    display:flex;align-items:center;gap:16px;
+  }
+  .purpose-band .tag{
+    flex-shrink:0;font-size:11px;font-weight:700;color:var(--accent-gold);
+    background:rgba(255,215,0,0.14);border-radius:999px;padding:5px 12px;
+    white-space:nowrap;
+  }
+  .purpose-band p{font-size:13px;color:var(--text-secondary);}
+  .purpose-band b{color:var(--text-primary);}
+
+  /* ブロック2 */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+  .compare-item{border-radius:14px;padding:20px;border:1px solid rgba(148,163,184,0.12);}
+  .compare-item.bad{background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.25);}
+  .compare-item.good{background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.28);}
+  .compare-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11.5px;font-weight:700;letter-spacing:0.04em;
+    padding:5px 12px;border-radius:999px;margin-bottom:12px;
+  }
+  .bad .compare-tag{background:rgba(239,68,68,0.18);color:#fca5a5;}
+  .good .compare-tag{background:rgba(34,197,94,0.18);color:#86efac;}
+  .compare-item p{font-size:13.5px;color:var(--text-secondary);}
+  .compare-item b{color:var(--text-primary);}
+
+  .ball-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+  .ball-card{
+    background:var(--bg-card);border:1px solid rgba(148,163,184,0.12);
+    border-radius:14px;padding:20px;position:relative;
+  }
+  .ball-card.required{border-color:rgba(0,212,255,0.3);}
+  .ball-req{
+    position:absolute;top:16px;right:16px;
+    font-size:10px;font-weight:700;color:var(--accent-cyan);
+    background:rgba(0,212,255,0.14);border-radius:999px;padding:3px 9px;
+  }
+  .ball-req.cond{color:var(--text-secondary);background:rgba(148,163,184,0.14);}
+  .ball-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:24px;height:24px;border-radius:7px;margin-bottom:12px;
+    background:rgba(0,212,255,0.12);color:var(--accent-cyan);
+    font-size:12px;font-weight:900;
+  }
+  .ball-card h3{font-size:14.5px;font-weight:700;margin-bottom:8px;color:var(--text-primary);}
+  .ball-card p{font-size:12.5px;color:var(--text-secondary);}
+
+  .def-box{
+    border-radius:12px;padding:16px 18px;margin-top:4px;
+    background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.18);
+    font-size:12.5px;color:var(--text-secondary);
+  }
+  .def-box b{color:var(--accent-cyan);}
+
+  /* ブロック3 タイムライン */
+  .timeline{display:flex;flex-direction:column;gap:0;position:relative;margin-top:8px;}
+  .tl-step{
+    display:flex;gap:18px;padding:18px 0;
+    border-bottom:1px solid rgba(148,163,184,0.1);
+  }
+  .tl-step:last-of-type{border-bottom:none;}
+  .tl-marker{
+    flex-shrink:0;display:flex;flex-direction:column;align-items:center;width:36px;
+  }
+  .tl-dot{
+    width:12px;height:12px;border-radius:50%;background:var(--accent-cyan);
+    box-shadow:0 0 0 4px rgba(0,212,255,0.14);
+  }
+  .tl-line{flex:1;width:2px;background:rgba(0,212,255,0.2);margin-top:6px;min-height:20px;}
+  .tl-content{flex:1;padding-top:1px;}
+  .tl-stage{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.04em;
+    color:var(--accent-cyan);background:rgba(0,212,255,0.12);
+    border-radius:999px;padding:3px 11px;margin-bottom:8px;
+  }
+  .tl-content h3{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text-primary);}
+  .tl-content p{font-size:13px;color:var(--text-secondary);}
+  .tl-content .def{
+    margin-top:10px;border-radius:10px;padding:12px 14px;
+    background:rgba(148,163,184,0.06);border:1px solid rgba(148,163,184,0.14);
+    font-size:12px;color:var(--text-secondary);
+  }
+  .tl-content .def b{color:var(--text-primary);}
+
+  .watch-band{
+    margin-top:20px;border-radius:14px;padding:18px 22px;
+    background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.24);
+    display:flex;align-items:flex-start;gap:16px;
+  }
+  .watch-band .tag{
+    flex-shrink:0;font-size:11px;font-weight:700;color:#fca5a5;
+    background:rgba(239,68,68,0.16);border-radius:999px;padding:5px 12px;white-space:nowrap;
+  }
+  .watch-band p{font-size:13px;color:var(--text-secondary);}
+  .watch-band b{color:var(--text-primary);}
+
+  /* ブロック4 思想 */
+  .principle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .principle-card{
+    background:var(--bg-card);border:1px solid rgba(168,85,247,0.22);
+    border-radius:16px;padding:22px 20px;
+  }
+  .principle-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:8px;margin-bottom:14px;
+    background:rgba(168,85,247,0.16);color:var(--accent-purple);
+    font-size:13px;font-weight:900;
+  }
+  .principle-card h3{font-size:14.5px;font-weight:700;margin-bottom:10px;color:var(--text-primary);}
+  .principle-card p{font-size:12.5px;color:var(--text-secondary);margin-bottom:10px;}
+  .principle-why{
+    font-size:11.5px;color:var(--accent-purple);
+    border-top:1px dashed rgba(168,85,247,0.3);padding-top:10px;margin-top:10px;
+  }
+  .principle-why b{color:var(--accent-purple);}
+
+  /* ブロック5 前提更新の軌跡 */
+  .shift-flow{display:flex;flex-direction:column;gap:12px;margin-top:6px;}
+  .shift-step{
+    background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.18);
+    border-radius:12px;padding:16px 18px;
+  }
+  .shift-step .shift-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;border-radius:6px;margin-right:8px;
+    background:rgba(255,215,0,0.14);color:var(--accent-gold);
+    font-size:11px;font-weight:900;
+  }
+  .shift-arrows{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px;
+  }
+  .shift-pill{
+    font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;
+    background:rgba(148,163,184,0.1);color:var(--text-secondary);
+  }
+  .shift-pill.final{background:rgba(34,197,94,0.16);color:#86efac;}
+  .shift-arrow{color:var(--accent-gold);font-size:13px;}
+  .shift-step p{font-size:12.5px;color:var(--text-secondary);}
+  .shift-step p b{color:var(--text-primary);}
+
+  .conclude-band{
+    margin-top:16px;border-radius:14px;padding:20px 22px;
+    background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.24);
+  }
+  .conclude-band .tag{
+    display:inline-block;font-size:11px;font-weight:700;color:#86efac;
+    background:rgba(34,197,94,0.16);border-radius:999px;padding:4px 11px;margin-bottom:10px;
+  }
+  .conclude-band p{font-size:13px;color:var(--text-secondary);}
+  .conclude-band b{color:var(--text-primary);}
+
+  /* ブロック6 実装 */
+  .role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .role-card{
+    background:var(--bg-card);border:1px solid rgba(148,163,184,0.12);
+    border-radius:14px;padding:20px;
+  }
+  .role-tag{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.04em;
+    padding:4px 10px;border-radius:999px;margin-bottom:12px;
+  }
+  .role-card.design .role-tag{background:rgba(0,212,255,0.16);color:var(--accent-cyan);}
+  .role-card.impl .role-tag{background:rgba(168,85,247,0.16);color:var(--accent-purple);}
+  .role-card h3{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--text-primary);}
+  .role-card p{font-size:12.5px;color:var(--text-secondary);}
+
+  .stack-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .stack-card{
+    background:var(--bg-card);border:1px solid rgba(148,163,184,0.12);
+    border-radius:14px;padding:20px;
+  }
+  .stack-card h3{font-size:13.5px;font-weight:700;margin-bottom:10px;color:var(--accent-cyan);}
+  .stack-card p{font-size:12.5px;color:var(--text-secondary);}
+  .stack-card p+p{margin-top:8px;}
+
+  .gate-band{
+    border-radius:14px;padding:18px 22px;margin-bottom:16px;
+    background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);
+  }
+  .gate-band .tag{
+    display:inline-block;font-size:11px;font-weight:700;color:#fca5a5;
+    background:rgba(239,68,68,0.16);border-radius:999px;padding:4px 11px;margin-bottom:10px;
+  }
+  .gate-band p{font-size:13px;color:var(--text-secondary);}
+  .gate-band b{color:var(--text-primary);}
+
+  .benefit-list{list-style:none;}
+  .benefit-list li{
+    display:flex;gap:12px;padding:12px 0;
+    border-bottom:1px solid rgba(148,163,184,0.1);
+    font-size:13px;
+  }
+  .benefit-list li:last-child{border-bottom:none;}
+  .benefit-list .dot{
+    flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;
+    background:var(--accent-green);
+  }
+  .benefit-list span{color:var(--text-secondary);}
+
+  footer{margin-top:56px;text-align:center;color:var(--text-secondary);font-size:11.5px;}
+
+  @media(max-width:760px){
+    .origin-grid,.compare-grid,.ball-grid,.principle-grid,.role-grid,.stack-grid{grid-template-columns:1fr;}
+  }
+
+  @media print{
+    body{background:#fff;color:#111;padding:0;}
+    header h1{-webkit-text-fill-color:#111;background:none;color:#111;}
+    header p{color:#333;}
+    .card,.origin-item,.compare-item,.ball-card,.tl-content .def,.principle-card,
+    .shift-step,.role-card,.stack-card,.purpose-band,.watch-band,.gate-band,.conclude-band,.def-box{
+      background:#fff !important;border:1px solid #ccc !important;color:#111 !important;
+      box-shadow:none !important;break-inside:avoid;
+    }
+    .compare-item.bad{background:#fff2f2 !important;}
+    .compare-item.good{background:#f0fdf4 !important;}
+    .shift-step{background:#fffbea !important;}
+    .conclude-band{background:#f0fdf4 !important;}
+    .watch-band,.gate-band{background:#fff2f2 !important;}
+    .purpose-band{background:#fffbea !important;}
+    p,span,.compare-item p,.ball-card p,.principle-card p,.shift-step p,.role-card p,.stack-card p,.tl-content p,.origin-item p{color:#333 !important;}
+    b{color:#111 !important;}
+    #pdf-btn{display:none !important;}
+    section{break-inside:avoid;}
+    @page{margin:15mm 12mm;size:A4;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">JIBUNGOTO</div>
+    <h1>JIBUNGOTO ──「指示して終わり」にしない、<br>100%当事者のタスク管理ツール</h1>
+    <p>委任した仕事を「相手の仕事」で終わらせず、「自分ごと」として持ち続けるための個人用ツール。</p>
+  </header>
+
+  <section>
+    <div class="section-title"><span class="num">1</span>これは何か</div>
+    <div class="origin-grid">
+      <div class="origin-item">
+        <span class="origin-label">名前の由来</span>
+        <p><b>JIBUNGOTO（自分ごと）</b>は、根底にある価値観「<b>100%当事者</b>」をそのまま名前にした、自社の価値観に合わせて設計した個人用タスク管理ツール。</p>
+        <div class="def-box"><b>100%当事者</b>＝問題や計画のズレを他人や環境のせいにせず、自分がコントロールできることに集中する姿勢。</div>
+      </div>
+      <div class="origin-item">
+        <span class="origin-label">目指す先</span>
+        <p>このツールが目指す先は、当社の経営理念「<b>ささえるひとをつくる</b>」への接続。</p>
+        <div class="def-box">どんな仕事も、その先に「ささえる相手」（顧客・部下・現場・会社）がいる。JIBUNGOTOは、その相手を常に意識させることで、日々のタスク管理を経営理念とつなぐ。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">2</span>何を解決するのか（既存ツールとの違い）</div>
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <span class="compare-tag">問題</span>
+        <p>一般のタスク管理ツールは「タスクを登録して終わり」ができてしまう。<b>委任した仕事を登録したら、あとは相手任せで放置できる状態</b>がそのまま残る。</p>
+      </div>
+      <div class="compare-item good">
+        <span class="compare-tag">JIBUNGOTOの解決</span>
+        <p>それを構造で禁じる。<b>次の要素がそろわないと、タスクを保存できない。</b></p>
+      </div>
+    </div>
+    <div class="ball-grid">
+      <div class="ball-card required">
+        <span class="ball-req">必須</span>
+        <span class="ball-num">1</span>
+        <h3>ささえる相手</h3>
+        <p>この仕事は誰・何のためか。人に限らず、会社・現場・自分の未来でもよい。</p>
+      </div>
+      <div class="ball-card required">
+        <span class="ball-req">必須・1件以上</span>
+        <span class="ball-num">2</span>
+        <h3>自分のボール</h3>
+        <p>指示した後、自分が果たす関わり。放置を許さないための核。</p>
+      </div>
+      <div class="ball-card">
+        <span class="ball-req cond">委任時のみ</span>
+        <span class="ball-num">3</span>
+        <h3>相手のボール</h3>
+        <p>相手が果たすもの。</p>
+      </div>
+    </div>
+    <div class="def-box" style="margin-bottom:14px;"><b>ボール</b>＝「誰が・いつまでに・何を」の3点がそろった、実行責任が明確な単位。3点のどれかが欠けたものは「願望」とみなし、保存できない。</div>
+    <div class="card">
+      <p style="font-size:13px;color:var(--text-secondary);"><b style="color:var(--text-primary);">要点：</b>委任タスクには常に「相手のボール」と「自分のボール」がペアで存在する。相手に投げて終わりではなく、自分の関わり（報告を受ける・作戦会議する・壁打ちする）が必ず紐づく。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">3</span>どう使うのか（タスクの一生）</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:6px;">タスクを時間軸に沿って進める。各段階に「自分のボール」が置かれる。</p>
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <span class="tl-stage">起点</span>
+          <h3>ささえる相手・目的を決める</h3>
+          <p>任意で「取りに行く喜び」も決める。</p>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <span class="tl-stage">委任時</span>
+          <h3>作戦会議を行う</h3>
+          <p>前提が動きやすい仕事ほど、作戦会議を複数回、自分で設計して置く。</p>
+          <div class="def"><b>作戦会議</b>＝仕事の前提（何が前提で、だからどう進めるか）を相手と合意する場。答えを渡すのではなく、問いを返して相手自身に考えさせる。</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-marker"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <span class="tl-stage">中間</span>
+          <h3>2割共有で報告を受ける</h3>
+          <div class="def"><b>2割共有</b>＝期限ぎりぎりではなく、早い段階（2割ほど進んだ時点）で途中報告を受け、ズレを早く直すための確認点。</div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-marker"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <span class="tl-stage">完了時</span>
+          <h3>フィードバックの型で締める</h3>
+          <p>あわせて、任意で「実際に得た喜び」を振り返る。事前に「取りに行く喜び」を書いていれば、その差分が学びになる。</p>
+          <div class="def"><b>フィードバックの型</b>＝「よかった点を認める → 目指す基準とのギャップを示す → 問いで締める」の三段階。</div>
+        </div>
+      </div>
+    </div>
+    <div class="watch-band">
+      <span class="tag">補助機能：放置検知</span>
+      <p>自分のボールが期限を過ぎて未実施なら、<b>毎日自動でアラート</b>する。「指示して終わり」の状態を見える化する仕組み。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">4</span>思想（なぜこの作りなのか）── 当社独自の価値観</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">このツールを貫く3つの原則。社外の人が最も理解しにくい部分なので、各原則に説明を付ける。</p>
+    <div class="principle-grid">
+      <div class="principle-card">
+        <span class="principle-num">1</span>
+        <h3>道具は判断を代行しない</h3>
+        <p>何を優先するか、緊急度と重要度のどこに置くか（4象限）は、システムではなく人が決める。器は「考える型」を強制するが、「答え」は渡さない。判断は本人の仕事として残す。</p>
+        <div class="principle-why"><b>なぜ：</b>答えを渡すと当事者性が抜けるから。</div>
+      </div>
+      <div class="principle-card">
+        <span class="principle-num">2</span>
+        <h3>前提更新を重んじる</h3>
+        <p>期限変更やリスケジュールは、単なる日付の書き換えを許さない。「何の前提が変わったか」を言語化しないと保存できない。</p>
+        <div class="def-box" style="margin-bottom:10px;"><b>前提更新</b>＝状況が変わったとき、他責にせず「新しい情報を得た」という事実として、計画を組み直すこと。</div>
+        <div class="principle-why"><b>なぜ：</b>日付だけ直すと、思考が止まったまま作業だけ進むから。</div>
+      </div>
+      <div class="principle-card">
+        <span class="principle-num">3</span>
+        <h3>喜びの事前→事後</h3>
+        <p>仕事の前に「取りに行く喜び」を、後に「実際に得た喜び」を記録する（どちらも任意）。両方そろえば、狙った喜びと得た喜びの差分から学べる。</p>
+        <div class="principle-why"><b>なぜ：</b>仕事を「こなす」だけでなく、自分にとっての意味と結びつけるため。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">5</span>どう作ったのか（このチャットで経たプロセス）</div>
+    <div class="card" style="margin-bottom:16px;">
+      <p style="font-size:13px;color:var(--text-secondary);">JIBUNGOTOは、社長とAI参謀（CoS）の壁打ちを通じて設計された。特徴的なのは、<b style="color:var(--text-primary);">手段を先に決めては立ち止まり、前提を更新し続けた</b>こと。</p>
+      <div class="def-box" style="margin-top:12px;"><b>壁打ち</b>＝答えをすぐ出さず、問いを重ねて相手自身に考えさせる対話のやり方。</div>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:10px;">主要な前提更新の軌跡（意思決定の構造のみ。個別の社内情報は含まない）：</p>
+    <div class="shift-flow">
+      <div class="shift-step">
+        <div class="shift-arrows">
+          <span class="shift-num">1</span>
+          <span class="shift-pill">AIを組み込むべき</span>
+          <span class="shift-arrow">→</span>
+          <span class="shift-pill final">AIなしで固定</span>
+        </div>
+        <p>便利そうだからと道具を先に決めかけたが、<b>本丸はAIではなく「ボールを決めて持つ構造」</b>だと問い直し、まずAIなしで作ると決めた。</p>
+      </div>
+      <div class="shift-step">
+        <div class="shift-arrows">
+          <span class="shift-num">2</span>
+          <span class="shift-pill">Webアプリで作る</span>
+          <span class="shift-arrow">→</span>
+          <span class="shift-pill">スプレッドシート</span>
+          <span class="shift-arrow">→</span>
+          <span class="shift-pill final">GAS製Webアプリ</span>
+        </div>
+        <p>形態を何度か問い直し、<b>セキュリティ（顧客情報）</b>と<b>「入力の入口を1つにする」</b>要件を満たす形に落ち着いた。</p>
+      </div>
+      <div class="shift-step">
+        <div class="shift-arrows">
+          <span class="shift-num">3</span>
+          <span class="shift-pill">タスクを2種類に分ける（他者連動／自己完結）</span>
+          <span class="shift-arrow">→</span>
+          <span class="shift-pill final">1つに統合</span>
+        </div>
+        <p>経営理念に照らし、「自己完結タスク」という分類は誤りだと気づいた。<b>どんな仕事もその先に相手がいる。</b>層を解体し、「ささえる相手」を全タスク共通の軸にした。</p>
+      </div>
+    </div>
+    <div class="conclude-band">
+      <span class="tag">締め</span>
+      <p>このツールの作り方そのものが、JIBUNGOTOの思想の実践だった。<b>立ち止まって上流を問い直し（前提更新）、手段のせいにせず自分の判断で決め直す（100%当事者）。</b>プロセスと思想が一致している。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><span class="num">6</span>どう実装したのか（技術構成と役割分担）</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">設計（思想・仕様）と実装（コード化）で、使うAIと役割を分けた。</p>
+    <div class="role-grid">
+      <div class="role-card design">
+        <span class="role-tag">仕様設計</span>
+        <h3>Claudeプロジェクト（CoS）</h3>
+        <p>Claude.ai上のプロジェクトで、社長とAI参謀（CoS）が壁打ちしながら骨格仕様書を作成した。仕様書は、どんな機能を・なぜ・どの価値観に基づいて作るかを定義したもの。実装の設計図にあたる。</p>
+      </div>
+      <div class="role-card impl">
+        <span class="role-tag">実装</span>
+        <h3>Gemini</h3>
+        <p>確定した仕様書をGeminiに渡し、実際に動くコード（Google Apps Script）を書かせた。Google Apps Scriptの編集画面にGeminiが内蔵されており、コードを書いてそのまま実行できるため、作って試す往復が速い。</p>
+      </div>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h3>UI（画面）：GAS製Webアプリ</h3>
+        <p>Google Apps ScriptのWebアプリ機能で画面を作る。専用のサーバーを別に用意する必要がない。</p>
+        <p>登録・更新・完了をすべて同じ画面で行い、入力の入口を1つに保つ。</p>
+      </div>
+      <div class="stack-card">
+        <h3>データ保存：Googleドライブ内のスプレッドシート</h3>
+        <p>データはGoogle Workspaceの中（Googleドライブ上のスプレッドシート）に保存する。</p>
+        <p><b style="color:var(--text-primary);">選定理由（重要）：</b>社内展開時には、タスクに顧客情報が含まれることが必ず発生する。会社がすでに管理しているGoogle Workspaceのアクセス権・監査の枠内にデータを収めることで、セキュリティを担保する。外部の新しいサービスにデータを増やさない。</p>
+      </div>
+    </div>
+    <div class="gate-band">
+      <span class="tag">入口の一本化（データを守る仕掛け）</span>
+      <p>スプレッドシートへの直接編集は禁止（保護をかける）。読み書きはすべてWebアプリ経由に限定する。<b>理由：</b>直接編集できると、「自分のボールがないと保存できない」というルールが骨抜きになるため。入口を1つに絞ることで、ツールの思想（放置を許さない構造）を確実に守る。</p>
+    </div>
+    <div class="card">
+      <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:10px;">この構成の利点（まとめ）</p>
+      <ul class="benefit-list">
+        <li><span class="dot"></span><span>新しい外部サービスを増やさず、既存のGoogle Workspaceの中だけで完結する（セキュリティと管理のしやすさ）。</span></li>
+        <li><span class="dot"></span><span>設計はClaude、実装はGeminiと、各AIの得意な場所で使い分けた。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    JIBUNGOTO 図解 ／ 社外非公開（検索エンジン非表示設定済み）
+  </footer>
+
+</div>
+
+<div id="pdf-btn" style="position:fixed;bottom:32px;right:32px;z-index:999;">
+  <button onclick="window.print()" style="
+    display:flex;align-items:center;gap:8px;
+    background:linear-gradient(120deg,var(--accent-cyan),var(--accent-purple));
+    color:#05070d;border:none;border-radius:999px;
+    padding:12px 20px;font-family:'Noto Sans JP',sans-serif;
+    font-size:13px;font-weight:700;cursor:pointer;
+    box-shadow:0 8px 24px rgba(0,212,255,0.28);">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+    PDFに出力
+  </button>
+</div>
+
+</body>
+</html>
